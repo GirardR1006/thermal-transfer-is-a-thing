@@ -1,0 +1,8 @@
+within BuildingHeatTransfer.Components.Interfaces;
+
+model Advanced_wall
+  extends BuildingHeatTransfer.Components.Interfaces.Basic_wall;
+  parameter Modelica.SIunits.Length thickness "Thickness of interface";
+  parameter Modelica.SIunits.ThermalConductivity lambda "Thermal conductivity of material";
+  parameter Modelica.SIunits.Area surface "Surface of interface";
+end Advanced_wall;

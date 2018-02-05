@@ -7,7 +7,7 @@ model Basic_model
       Placement(visible = true, transformation(origin = {-72, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Thermal.HeatTransfer.Celsius.TemperatureSensor outsideTemperatureSensor annotation(
       Placement(visible = true, transformation(origin = {-78, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    BuildingHeatTransfer.Components.Interfaces.Basic_wall basic_wall(G = 0.01) annotation(
+    BuildingHeatTransfer.Components.Interfaces.Basic_wall basic_wall(lambda = 1, surface = 4, thickness = 0.4) annotation(
       Placement(visible = true, transformation(origin = {-22, -28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     BuildingHeatTransfer.Components.Rooms.Basic_room basic_room(Height = 2, Surface = 10, T_int = 298.15)  annotation(
     Placement(visible = true, transformation(origin = {47, 3}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
