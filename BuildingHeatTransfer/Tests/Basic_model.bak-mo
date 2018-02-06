@@ -7,15 +7,15 @@ model Basic_model
       Placement(visible = true, transformation(origin = {-72, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Thermal.HeatTransfer.Celsius.TemperatureSensor outsideTemperatureSensor annotation(
       Placement(visible = true, transformation(origin = {-78, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    BuildingHeatTransfer.Components.Interfaces.Basic_wall basic_wall(lambda = 1, surface = 4, thickness = 0.4) annotation(
-      Placement(visible = true, transformation(origin = {-22, -28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     BuildingHeatTransfer.Components.Rooms.Basic_room basic_room(Height = 2, Surface = 10, T_int = 298.15)  annotation(
     Placement(visible = true, transformation(origin = {47, 3}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
+    Components.Interfaces.Parallel_wall concreteWallWithGlassWindow(lambdas = {1, 1.5}, numberOfMaterials = 2, surfaces = {1.2, 2.8},thicknesses = {0.03, 0.8})  annotation(
+    Placement(visible = true, transformation(origin = {-18, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  connect(basic_room.thermal_port, basic_wall.port_b) annotation(
-    Line(points = {{24, 3}, {-12, 3}, {-12, -28}}, color = {191, 0, 0}));
-  connect(basic_wall.port_a, outside.port) annotation(
-    Line(points = {{-32, -28}, {-53, -28}, {-53, -18}, {-72, -18}}, color = {191, 0, 0}));
+  connect(concreteWallWithGlassWindow.port_a, outside.port) annotation(
+    Line(points = {{-28, -38}, {-72, -38}, {-72, -18}, {-72, -18}}, color = {191, 0, 0}));
+  connect(basic_room.thermal_port, concreteWallWithGlassWindow.port_b) annotation(
+    Line(points = {{24, 4}, {-8, 4}, {-8, -38}, {-8, -38}}, color = {191, 0, 0}));
   connect(outside.port, outsideTemperatureSensor.port) annotation(
     Line(points = {{-72, -18}, {-72, -7}, {-88, -7}, {-88, 38}}, color = {191, 0, 0}));
 end Basic_model;

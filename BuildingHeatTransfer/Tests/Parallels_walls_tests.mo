@@ -1,0 +1,19 @@
+within BuildingHeatTransfer.Tests;
+
+model Parallels_walls_tests
+    extends Modelica.Icons.Example;
+    Modelica.Thermal.HeatTransfer.Components.HeatCapacitor outside(C = 1000000000000000000000000, T(start = 278.15)) annotation(
+      Placement(visible = true, transformation(origin = {-72, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Modelica.Thermal.HeatTransfer.Celsius.TemperatureSensor outsideTemperatureSensor annotation(
+      Placement(visible = true, transformation(origin = {-78, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    BuildingHeatTransfer.Components.Rooms.Room_with_source heated_room(Height = 2,SourcePower = 180, Surface = 10, T_int (displayUnit = "degC") = 298.15)  annotation(
+      Placement(visible = true, transformation(origin = {59, -7}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
+    Components.Interfaces.Parallel_wall concrete_wall_with_window(lambdas = {0.95, 1.2, 0.95}, numberOfLayers = 3, surfaces = {4, 2, 4}, thicknesses = {0.4, 0.03, 0.4})  annotation(
+    Placement(visible = true, transformation(origin = {-12, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));  equation
+  connect(concrete_wall_with_window.port_a, outside.port) annotation(
+    Line(points = {{-22, -12}, {-42, -12}, {-42, -24}, {-72, -24}, {-72, -18}, {-72, -18}, {-72, -18}}, color = {191, 0, 0}));
+  connect(heated_room.thermal_port, concrete_wall_with_window.port_b) annotation(
+    Line(points = {{34, -6}, {8, -6}, {8, -12}, {-2, -12}, {-2, -12}}, color = {191, 0, 0}));
+  connect(outside.port, outsideTemperatureSensor.port) annotation(
+    Line(points = {{-72, -18}, {-72, -7}, {-88, -7}, {-88, 38}}, color = {191, 0, 0}));
+end Parallels_walls_tests;

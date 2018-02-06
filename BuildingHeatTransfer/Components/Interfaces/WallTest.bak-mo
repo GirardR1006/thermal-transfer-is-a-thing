@@ -1,0 +1,40 @@
+within BuildingHeatTransfer.Components.Interfaces;
+
+model WallTest
+  parameter Real numberOfMaterials=4; 
+  parameter Modelica.SIunits.Length thickness[numberOfMaterials] "Thicknesses of interfaces";
+  parameter Modelica.SIunits.ThermalConductivity lambda[numberOfMaterials] "Thermal conductivities of materials";
+  parameter Modelica.SIunits.Area surface[numberOfMaterials] "Surfaces of interfaces";
+  BuildingHeatTransfer.Components.Interfaces.Basic_wall walls[numberOfMaterials];
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a annotation(
+    Placement(visible = true, transformation(origin = {-86, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-86, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b annotation(
+    Placement(visible = true, transformation(origin = {82, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {82, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  /*Basic_wall basic_wall1 annotation(
+    Placement(visible = true, transformation(origin = {-24, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  BuildingHeatTransfer.Components.Interfaces.Basic_wall basic_wall2 annotation(
+    Placement(visible = true, transformation(origin = {18, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  BuildingHeatTransfer.Components.Interfaces.Basic_wall basic_wall3 annotation(
+    Placement(visible = true, transformation(origin = {60, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+*/
+equation
+/*
+  connect(basic_wall3.port_b, port_b) annotation(
+    Line(points = {{70, 14}, {82, 14}, {82, -6}, {82, -6}, {82, -2}}, color = {191, 0, 0}));
+  connect(basic_wall2.port_b, basic_wall3.port_a) annotation(
+    Line(points = {{28, 2}, {44, 2}, {44, 14}, {50, 14}, {50, 14}}, color = {191, 0, 0}));
+  connect(basic_wall1.port_b, basic_wall2.port_a) annotation(
+    Line(points = {{-14, 2}, {8, 2}, {8, 2}, {8, 2}}, color = {191, 0, 0}));
+  connect(port_a, basic_wall1.port_a) annotation(
+    Line(points = {{-86, 0}, {-34, 0}, {-34, 2}, {-34, 2}}, color = {191, 0, 0}));
+ */ for i in 1:numberOfMaterials loop
+    walls[i].thickness=thickness[i];
+    walls[i].surface=surface[i];
+    walls[i].lambda=lambda[i];
+  end for;
+  connect(walls[1].port_a,port_a);
+  for i in 1:(numberOfMaterials-1) loop  
+    connect(walls[i].port_b,walls[i+1].port_a);
+  end for;
+  connect(walls[end].port_b, port_b);
+end WallTest;

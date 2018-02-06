@@ -1,8 +1,6 @@
 within BuildingHeatTransfer.Tests;
 
 model One_Room_One_Source
-
-    //TODO: Temperatures are shitty, try to change that
     extends Modelica.Icons.Example;
     Modelica.Thermal.HeatTransfer.Components.HeatCapacitor outside(C = 1000000000000000000000000, T(start = 278.15)) annotation(
       Placement(visible = true, transformation(origin = {-72, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
